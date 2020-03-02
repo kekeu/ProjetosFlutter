@@ -18,6 +18,8 @@ environment:
 
 dependencies:
   dio: ^3.0.9
+  font_awesome_flutter: ^8.7.0
+  permission_handler: ^4.3.0
   google_maps_flutter: ^0.5.24+1
   firebase_auth: ^0.15.5+2
   google_sign_in: ^4.1.4
