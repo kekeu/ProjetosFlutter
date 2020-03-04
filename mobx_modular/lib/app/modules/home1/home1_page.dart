@@ -1,73 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobx_modular/app/shared/utils/constants.dart';
+import 'home1_controller.dart';
 
-import 'home_controller.dart';
-
-class HomePage extends StatefulWidget {
+class Home1Page extends StatefulWidget {
   final String title;
-  const HomePage({Key key, this.title = "Home"}) : super(key: key);
+  const Home1Page({Key key, this.title = "Home1"}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _Home1PageState createState() => _Home1PageState();
 }
 
-class _HomePageState extends ModularState<HomePage, HomeController> {
+class _Home1PageState extends ModularState<Home1Page, Home1Controller> {
   //use 'controller' variable to access controller
 
   @override
   void initState() {
     super.initState();
-    controller.getUserLocation();
-    controller.setMarkers();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Inicial'),
-        actions: <Widget>[
-          // botoes de acções
-          IconButton(
-            icon: Icon(Icons.account_circle),
-            onPressed: () {
-              controller.navigateToUser();
-            },
-          ),
-        ],
-      ),
       body: Container(
         decoration: MyBoxDecoration(),
         child: Stack(
           children: <Widget>[
-            _buildGoogleMap(context),
             _buildContainer(),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildGoogleMap(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
-      child: GoogleMap(
-        mapType: MapType.normal,
-        initialCameraPosition:  CameraPosition(
-            target: controller.lastMapPosition,
-            zoom: 12
-        ),
-        onMapCreated: (GoogleMapController mapController) {
-          controller.completerGooglemap(mapController);
-        },
-        myLocationEnabled: true,
-        markers: controller.markers,
-        onCameraMove: controller.onCameraMove,
       ),
     );
   }
@@ -168,14 +130,14 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
 
   Widget _buildContainer() {
     return Align(
-      alignment: Alignment.topLeft,
+      alignment: Alignment.centerLeft,
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 20.0),
-        height: 150.0,
+        height: MediaQuery.of(context).size.height * 0.8,
         child: ListView(
           scrollDirection: Axis.horizontal,
           children: <Widget>[
-            SizedBox(width: 10.0),
+            SizedBox(width: 20.0),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: _boxes(
@@ -218,40 +180,39 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
 
   Widget _boxes(String _image, double lat,double long,String restaurantName) {
     return GestureDetector(
-        onTap: () {
-          controller.gotoLocation(lat, long);
-        },
-        child: Container(
-          child: new FittedBox(
-            child: Material(
-                color: Colors.white,
-                elevation: 14.0,
-                borderRadius: BorderRadius.circular(24.0),
-                shadowColor: Color(0x802196F3),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Container(
-                      width: 180,
-                      height: 200,
-                      child: ClipRRect(
-                        borderRadius: new BorderRadius.circular(24.0),
-                        child: Image(
-                          fit: BoxFit.fill,
-                          image: NetworkImage(_image),
-                        ),
-                      ),),
-                    Container(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: myDetailsContainer1(restaurantName),
+      onTap: () {
+      },
+      child: Container(
+        child: new FittedBox(
+          child: Material(
+              color: Colors.white,
+              elevation: 14.0,
+              borderRadius: BorderRadius.circular(24.0),
+              shadowColor: Color(0x802196F3),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    height: MediaQuery.of(context).size.height * 0.7,
+                    child: ClipRRect(
+                      borderRadius: new BorderRadius.circular(24.0),
+                      child: Image(
+                        fit: BoxFit.fill,
+                        image: NetworkImage(_image),
                       ),
+                    ),),
+                  Container(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: myDetailsContainer1(restaurantName),
                     ),
+                  ),
 
-                  ],)
-            ),
+                ],)
           ),
         ),
-      );
+      ),
+    );
   }
 }

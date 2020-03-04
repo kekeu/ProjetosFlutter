@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 const String URL_BASE = 'https://pokeapi.co/api/v2/';
 
-
-
 BoxDecoration MyBoxDecoration() {
   return BoxDecoration(
     gradient: LinearGradient(

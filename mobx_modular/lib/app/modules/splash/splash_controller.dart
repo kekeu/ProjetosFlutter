@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:mobx_modular/app/shared/auth/auth_controller.dart';
@@ -22,7 +20,7 @@ abstract class _SplashControllerBase with Store {
   void navigationPage() async {
     await Future.delayed(const Duration(seconds: 2));
     if (isLogged())
-      Modular.to.pushReplacementNamed("/home/");
+      Modular.to.pushReplacementNamed("/home1/");
     else
       Modular.to.pushReplacementNamed("/login/");
   }
