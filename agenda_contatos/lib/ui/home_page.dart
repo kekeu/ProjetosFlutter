@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Contatos"),
+        title: Text("Agenda Contatos"),
         backgroundColor: Colors.lightGreen,
         centerTitle: true,
         actions: <Widget>[
